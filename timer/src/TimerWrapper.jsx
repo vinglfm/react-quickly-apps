@@ -3,6 +3,8 @@ const Timer = require('Timer');
 const Button = require('Button');
 const StartButton = require('StartButton');
 const Sound = require('Sound');
+const {connect} = require('react-redux');
+const {addLog} = require('./flow/log.js');
 const timerSound = require('../timerSound.wav');
 
 class TimerWrapper extends React.Component {
@@ -16,6 +18,7 @@ class TimerWrapper extends React.Component {
     this.reset = this.reset.bind(this);
   }
   startTimer(timeLeft) {
+    this.props.addLog(`Timer has been started at ${Date.now()}`);
     clearInterval(this.state.timer);
     let timer = setInterval(() => {
       var timeLeft = this.state.timeLeft - 1;
@@ -28,18 +31,21 @@ class TimerWrapper extends React.Component {
   }
   pause() {
     if(this.state.timeLeft > 0 && !this.state.paused) {
+      this.props.addLog(`Timer has been paused at ${Date.now()}`);
       this.setState({paused: true});
       clearInterval(this.state.timer);
     }
   }
   resume() {
     if(this.state.paused && this.state.timeLeft > 0) {
+      this.props.addLog(`Timer has been resumed at ${Date.now()}`);
       this.setState({paused: false});
       this.startTimer(this.state.timeLeft);
     }
   }
   cancel() {
     if(this.state.timeLeft > 0) {
+      this.props.addLog(`Timer has been canceled at ${Date.now()}`);
       this.setState({
         timeLeft: null,
         paused: false
@@ -77,4 +83,6 @@ class TimerWrapper extends React.Component {
   }
 }
 
-module.exports = TimerWrapper;
+module.exports = connect(null, {
+  addLog
+})(TimerWrapper);

@@ -21,7 +21,8 @@ const config = {
       App: path.resolve(__dirname, 'src/App.jsx'),
       About: path.resolve(__dirname, 'src/About.jsx'),
       Content: path.resolve(__dirname, 'src/Content.jsx'),
-      Navbar: path.resolve(__dirname, 'src/Navbar.jsx')
+      Navbar: path.resolve(__dirname, 'src/Navbar.jsx'),
+      Log: path.resolve(__dirname, 'src/Log.jsx'),
     }
   },
   module : {

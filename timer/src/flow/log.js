@@ -9,7 +9,7 @@ module.exports = {
   reducer: handleActions({
     [addLog]: (state, action) => ({
       ...state,
-      logs: logs.concat(action.payload)
+      logs: state.logs.concat(action.payload)
     }),
     [clearLog]: (state) => ({
       ...state,
