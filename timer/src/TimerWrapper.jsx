@@ -17,6 +17,7 @@ class TimerWrapper extends React.Component {
     this.cancel = this.cancel.bind(this);
     this.reset = this.reset.bind(this);
   }
+
   start(timeLeft) {
     this.props.addLog(`Timer has been started at ${Date.now()}`);
     clearInterval(this.state.timer);
@@ -29,6 +30,7 @@ class TimerWrapper extends React.Component {
     }, 1000)
     return this.setState({timeLeft: timeLeft, timeFrom: timeLeft, timer: timer});
   }
+
   pause() {
     if(this.state.timeLeft > 0 && !this.state.paused) {
       this.props.addLog(`Timer has been paused at ${Date.now()}`);
@@ -36,6 +38,7 @@ class TimerWrapper extends React.Component {
       clearInterval(this.state.timer);
     }
   }
+
   resume() {
     if(this.state.paused && this.state.timeLeft > 0) {
       this.props.addLog(`Timer has been resumed at ${Date.now()}`);
@@ -43,6 +46,7 @@ class TimerWrapper extends React.Component {
       this.start(this.state.timeLeft);
     }
   }
+
   cancel() {
     if(this.state.timeLeft > 0) {
       this.props.addLog(`Timer has been canceled at ${Date.now()}`);
@@ -53,11 +57,17 @@ class TimerWrapper extends React.Component {
       clearInterval(this.state.timer);
     }
   }
+
   reset() {
     if(this.state.timeLeft > 0) {
       this.setState({timeLeft:this.state.timeFrom});
     }
   }
+
+  componentWillUnmount() {
+    clearInterval(this.state.timer);
+  }
+  
   render() {
     console.log('render');
     return (
