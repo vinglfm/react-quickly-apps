@@ -15,6 +15,5 @@ module.exports = {
       ...state,
       logs: []
     })
-  }, {logs:[]}),
-  getLog: state => state.logs
+  }, {logs:[]})
 }

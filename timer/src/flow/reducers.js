@@ -1,8 +1,8 @@
 const {combineReducers} = require('redux');
 const {
-  reducer: logs
+  reducer: log
 } = require('./log.js');
 
 module.exports = combineReducers({
-  logs
+  log
 });

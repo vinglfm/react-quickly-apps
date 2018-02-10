@@ -11,13 +11,13 @@ class TimerWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state =  {timeLeft: null, timeFrom: null, timer: null, paused: false};
-    this.startTimer = this.startTimer.bind(this);
+    this.start = this.start.bind(this);
     this.pause = this.pause.bind(this);
     this.resume = this.resume.bind(this);
     this.cancel = this.cancel.bind(this);
     this.reset = this.reset.bind(this);
   }
-  startTimer(timeLeft) {
+  start(timeLeft) {
     this.props.addLog(`Timer has been started at ${Date.now()}`);
     clearInterval(this.state.timer);
     let timer = setInterval(() => {
@@ -40,7 +40,7 @@ class TimerWrapper extends React.Component {
     if(this.state.paused && this.state.timeLeft > 0) {
       this.props.addLog(`Timer has been resumed at ${Date.now()}`);
       this.setState({paused: false});
-      this.startTimer(this.state.timeLeft);
+      this.start(this.state.timeLeft);
     }
   }
   cancel() {
@@ -64,9 +64,9 @@ class TimerWrapper extends React.Component {
       <div className="row-fluid">
         <h2>Timer</h2>
         <div className="btn-group" role="group">
-          <StartButton time={5} startTimer={this.startTimer}/>
-          <StartButton time={10} startTimer={this.startTimer}/>
-          <StartButton time={15} startTimer={this.startTimer}/>
+          <StartButton time={5} startTimer={this.start}/>
+          <StartButton time={10} startTimer={this.start}/>
+          <StartButton time={15} startTimer={this.start}/>
         </div>
         <div>
           <div className="btn-group" role="group">
