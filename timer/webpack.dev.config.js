@@ -30,6 +30,7 @@ const config = {
       {
         test : /\.jsx?/,
         include : __dirname,
+        exclude : path.join(__dirname, 'server'),
         loaders : ['react-hot-loader/webpack','babel-loader']
       },
       {

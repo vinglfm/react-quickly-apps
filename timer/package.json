@@ -2,11 +2,12 @@
   "name": "timer",
   "version": "1.0.0",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --config webpack.dev.config.js -w",
+    "build": "./node_modules/.bin/webpack --config webpack.dev.config.js",
+    "watch": "./node_modules/.bin/webpack --config webpack.dev.config.js -w",
     "build:server": "./node_modules/.bin/webpack --config webpack.server.config.js",
     "server": "http-server --cors",
     "start:dev": "webpack-dev-server --progress --color --config webpack.dev.config.js",
-    "start:server": "nodemon ./build/server.js"
+    "start:server": "nodemon ./server/build/server.js"
   },
   "author": "Andrew Pryshchepa",
   "license": "MIT",
