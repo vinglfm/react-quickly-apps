@@ -18,7 +18,7 @@ module.exports = {
       return {...state, logs: []};
     },
     [fetchLog]: (state, action) => {
-      return {...state, logs: action.payload.concat(state.logs)};
+      return {...state, logs: action.payload};
     }
   }, {logs:[]})
 }

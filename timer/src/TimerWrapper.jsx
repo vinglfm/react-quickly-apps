@@ -1,6 +1,7 @@
 const React = require('react');
 const Timer = require('Timer');
 const Button = require('Button');
+const axios = require('axios');
 const StartButton = require('StartButton');
 const Sound = require('Sound');
 const {connect} = require('react-redux');
@@ -16,10 +17,27 @@ class TimerWrapper extends React.Component {
     this.resume = this.resume.bind(this);
     this.cancel = this.cancel.bind(this);
     this.reset = this.reset.bind(this);
+    this.addLog = this.addLog.bind(this);
+  }
+
+  addLog(data) {
+    const query =`mutation {
+      create(text:"${data}") {text}
+    }`;
+
+    axios({
+      method: 'post',
+      url: '/graphql?',
+      data: {
+        query
+      }
+    }).then(response => {
+      this.props.addLog(data);
+    });
   }
 
   start(timeLeft) {
-    this.props.addLog(`Timer has been started at ${Date.now()}`);
+    this.addLog(`Timer has been started at ${Date.now()}`);
     clearInterval(this.state.timer);
     let timer = setInterval(() => {
       var timeLeft = this.state.timeLeft - 1;
@@ -33,7 +51,7 @@ class TimerWrapper extends React.Component {
 
   pause() {
     if(this.state.timeLeft > 0 && !this.state.paused) {
-      this.props.addLog(`Timer has been paused at ${Date.now()}`);
+      this.addLog(`Timer has been paused at ${Date.now()}`);
       this.setState({paused: true});
       clearInterval(this.state.timer);
     }
@@ -41,7 +59,7 @@ class TimerWrapper extends React.Component {
 
   resume() {
     if(this.state.paused && this.state.timeLeft > 0) {
-      this.props.addLog(`Timer has been resumed at ${Date.now()}`);
+      this.addLog(`Timer has been resumed at ${Date.now()}`);
       this.setState({paused: false});
       this.start(this.state.timeLeft);
     }
@@ -49,7 +67,7 @@ class TimerWrapper extends React.Component {
 
   cancel() {
     if(this.state.timeLeft > 0) {
-      this.props.addLog(`Timer has been canceled at ${Date.now()}`);
+      this.addLog(`Timer has been canceled at ${Date.now()}`);
       this.setState({
         timeLeft: null,
         paused: false
@@ -67,7 +85,7 @@ class TimerWrapper extends React.Component {
   componentWillUnmount() {
     clearInterval(this.state.timer);
   }
-  
+
   render() {
     console.log('render');
     return (
