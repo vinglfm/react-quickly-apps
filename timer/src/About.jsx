@@ -1,6 +1,7 @@
 const React = require('react');
+const axios = require('axios');
 const {connect} = require('react-redux');
-const {clearLog} = require('./flow/log.js');
+const {clearLog, fetchLog} = require('./flow/log.js');
 const Button = require('Button');
 const Log = require('Log');
 
@@ -8,6 +9,14 @@ class About extends React.Component {
   constructor(props) {
     super(props);
     this.clear = this.clear.bind(this);
+  }
+
+  componentDidMount() {
+    const query ='query {\n  logs {\n    text\n  }\n}';
+
+    axios.get(`/graphql?query=${query}`).then(response => {
+      this.props.fetchLog(response.data.data.logs);
+    });
   }
 
   clear() {
@@ -19,7 +28,7 @@ class About extends React.Component {
       <div>
         <Button labelText="Clear" apply={this.clear} disabled={this.props.logs.isEmpty}/>
         {this.props.logs.map((log, index) => (
-          <Log key={index} data={log}/>
+          <Log key={index} data={log.text}/>
         ))}
       </div>
     );
@@ -27,5 +36,6 @@ class About extends React.Component {
 }
 
 module.exports = connect(({log})=>({logs: log.logs}), {
-  clearLog
+  clearLog,
+  fetchLog
 })(About);
