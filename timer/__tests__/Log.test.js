@@ -1,13 +1,15 @@
+const Enzyme = require('enzyme');
+const Adapter = require('enzyme-adapter-react-16');
+Enzyme.configure({ adapter: new Adapter() });
+
+const {expect} = require('chai');
+
 const React = require('react');
-const { createRenderer } = require('react-test-renderer/shallow');
 const Log = require('../src/Log.jsx');
 
-test('Log renders props.data', () => {
+test('Log renders data as children', () => {
 
-  const logRenderer = createRenderer();
-  logRenderer.render(<Log data="for rendering"/>);
-  const log = logRenderer.getRenderOutput();
+  const log = Enzyme.shallow(<Log data="for rendering"/>);
 
-  expect(log.type).toBe('p');
-  expect(log.props.children).toBe("for rendering");
+  expect(log.props().children).to.equal('for rendering');
 });
