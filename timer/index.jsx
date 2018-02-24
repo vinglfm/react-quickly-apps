@@ -4,7 +4,7 @@ const {BrowserRouter} = require('react-router-dom');
 const {Provider} = require('react-redux');
 const {createStore} = require('redux');
 const reducers = require('./src/flow/reducers.js');
-const App = require('App');
+const App = require('App.jsx');
 
 require('bootstrap/dist/css/bootstrap.min.css');
 require('./app.css');

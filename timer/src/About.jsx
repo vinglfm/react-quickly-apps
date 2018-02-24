@@ -2,8 +2,8 @@ const React = require('react');
 const axios = require('axios');
 const {connect} = require('react-redux');
 const {clearLog, fetchLog} = require('./flow/log.js');
-const Button = require('Button');
-const Log = require('Log');
+const Button = require('Button.jsx');
+const Log = require('Log.jsx');
 
 class About extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class About extends React.Component {
   render() {
     return (
       <div>
-        <Button labelText="Clear" apply={this.clear} disabled={this.props.logs.isEmpty}/>
+        <Button labelText="Clear" apply={this.clear} disabled={this.props.logs.length === 0}/>
         {this.props.logs.map((log, index) => (
           <Log key={index} data={log.text}/>
         ))}
@@ -39,3 +39,5 @@ module.exports = connect(({log})=>({logs: log.logs}), {
   clearLog,
   fetchLog
 })(About);
+
+module.exports.About = About;

@@ -1,6 +1,6 @@
 const React = require('react');
-const Navbar = require('Navbar');
-const Content = require('Content');
+const Navbar = require('Navbar.jsx');
+const Content = require('Content.jsx');
 
 module.exports = () => (
   <div>

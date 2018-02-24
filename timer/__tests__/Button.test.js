@@ -6,7 +6,7 @@ const sinon = require('sinon');
 const {expect} = require('chai');
 
 const React = require('react');
-const Button = require('../src/Button.jsx');
+const Button = require('Button');
 
 test('render button with text and in disabled state', () => {
 

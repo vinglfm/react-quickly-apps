@@ -5,7 +5,7 @@ Enzyme.configure({ adapter: new Adapter() });
 const {expect} = require('chai');
 
 const React = require('react');
-const Log = require('../src/Log.jsx');
+const Log = require('Log');
 
 test('Log renders data as children', () => {
 

@@ -1,7 +1,7 @@
 const React = require('react');
 const {Switch, Route} = require('react-router-dom');
-const TimerWrapper = require('TimerWrapper');
-const About = require('About');
+const TimerWrapper = require('TimerWrapper.jsx');
+const About = require('About.jsx');
 
 module.exports = () => {
   return (
