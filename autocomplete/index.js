@@ -44,16 +44,27 @@ mongodb.MongoClient.connect(url, function(err, db) {
       if (err) return next(err)
       return res.json(docs)
     })
-  })
+  });
+
   app.post('/rooms', function(req, res, next){
-    req.checkBody('name', 'Invalid name in body').notEmpty()
+    req.checkBody('name', 'Invalid name in body').notEmpty();
     var errors = req.validationErrors()
     if (errors) return next(errors)
     req.rooms.insert(req.body, function (err, result) {
       if (err) return next(err)
       return res.json(result.ops[0])
     })
-  })
+  });
+
+  app.delete('/rooms/:id', function(req, res, next) {
+    const id = req.param('id');
+    req.rooms.remove({'_id': mongodb.ObjectId(id)}, function(err, result) {
+      if (err) {
+        return next(err);
+      }
+      res.end();
+    });
+  });
 
   app.get('/', function(req, res, next){
     var url = 'http://localhost:' + port + '/rooms'
@@ -71,7 +82,7 @@ mongodb.MongoClient.connect(url, function(err, db) {
                 }
               </script>`
       })
-    })
+    });
   })
 
   app.listen(port)

@@ -58,13 +58,20 @@ class Autocomplete extends React.Component {
   removeOption(event) {
     event.preventDefault();
     const optionId = event.target.getAttribute('data-optId');
-    const updatedOptions = this.state.options.filter(elem => elem._id !== optionId);
-    this.setState({
-      options: updatedOptions,
-      filteredOptions: updatedOptions.filter(function(option, index, list){
-        return (event.target.value === option.name.substr(0, event.target.value.length))
+
+    request
+      .delete(this.props.url + '/' + optionId)
+      .then(response => response.data)
+      .then((body) => {
+        const updatedOptions = this.state.options.filter(elem => elem._id !== optionId);
+
+        this.setState({
+          options: updatedOptions,
+          filteredOptions: updatedOptions.filter(
+            option => this.state.currentOption === option.name.substr(0, this.state.currentOption.length))
+        });
       })
-    });
+      .catch(error => console.error(error));
   }
 
   render() {
